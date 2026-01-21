@@ -1,27 +1,12 @@
 import 'dotenv/config';
-import { Sequelize } from 'sequelize';
+import sequelize from './db.ts';
 import { en } from '../helper/constants/en.ts';
-
-const dialect = (process.env.DB_DIALECT || 'mysql') as
-  | 'mysql'
-  | 'postgres'
-  | 'mariadb'
-  | 'mssql'
-  | 'sqlite';
-
-const sequelize = new Sequelize(
-  process.env.DB_DBNAME as string,
-  process.env.DB_USERNAME as string,
-  process.env.DB_PASSWWORD as string,
-  {
-    host: process.env.DB_HOST as string,
-    dialect,
-  }
-);
+import { User } from '../modules/user/user.model.ts'; // Import for registration/initialization
 
 async function testConnection(): Promise<void> {
   try {
     await sequelize.authenticate();
+    await sequelize.sync({ alter: true });
     console.log(en.SUCCESS.DB_CONN_SUCCESS);
   } catch (error) {
     console.error(en.ERROR.DB_CONN_ERR, error);
