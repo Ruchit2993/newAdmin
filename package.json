@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app/index.ts",
   "scripts": {
-    "dev": "nodemon --exec \"npx tsx\" src/app/index.ts",
+    "dev": "nodemon --exec tsx src/app/index.ts",
     "build": "tsc",
     "start": "node dist/app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +19,7 @@
     "@types/node": "^25.0.9",
     "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
