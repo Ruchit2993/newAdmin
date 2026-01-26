@@ -15,6 +15,8 @@ export class ProductsController {
             const createDto: CreateProductValidator = req.body;
             if (req.file) {
                 createDto.image = req.file.path.replace(/\\/g, '/');
+            } else {
+                return res.status(400).json(ResponseBuilder.error('Image is required'));
             }
             // Multer parses everything as strings in body, so we need to convert numbers
             if (createDto.price) createDto.price = Number(createDto.price);

@@ -3,13 +3,12 @@ import cors from "cors";
 import type { Application, Request, Response } from "express";
 import { en } from "../helper/constants/en.ts";
 import dotenv from "dotenv";
-import { sequelize, testConnection } from "../config/dataBaseConfing.ts";
+import { sequelize, testConnection } from "../config/database.config.ts";
 import router from "./route/route.ts";
 
 dotenv.config();
 const app: Application = express();
 
-// middleware
 app.use((req, res, next) => {
     console.log('Incoming Request:', req.method, req.url);
     console.log('Origin:', req.headers.origin);

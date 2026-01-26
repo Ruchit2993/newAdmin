@@ -1,6 +1,8 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import { Request, Response, NextFunction } from 'express';
+import { ResponseBuilder } from '../helper/response-builder/response-builder.ts';
 
 const uploadDir = 'uploads/';
 
@@ -23,7 +25,7 @@ const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCa
     if (file.mimetype.startsWith('image/')) {
         cb(null, true);
     } else {
-        cb(null, false);
+        cb(new Error('Only image files are allowed'));
     }
 };
 
@@ -34,3 +36,19 @@ export const upload = multer({
         fileSize: 5 * 1024 * 1024 // 5MB limit
     }
 });
+
+export const handleMultipartData = (fieldName: string) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+        const uploadMiddleware = upload.single(fieldName);
+        uploadMiddleware(req, res, (err: any) => {
+            if (err) {
+                if (err instanceof multer.MulterError) {
+                    return res.status(400).json(ResponseBuilder.error(`Multer Error: ${err.message}`));
+                } else if (err) {
+                    return res.status(400).json(ResponseBuilder.error(err.message));
+                }
+            }
+            next();
+        });
+    };
+};

@@ -1,7 +1,8 @@
 import { Sequelize } from 'sequelize';
 import 'dotenv/config';
+import { en } from '../helper/constants/en.ts';
 
-const sequelize = new Sequelize(
+export const sequelize = new Sequelize(
     process.env.DB_DBNAME as string,
     process.env.DB_USERNAME as string,
     process.env.DB_PASSWWORD as string,
@@ -16,4 +17,12 @@ const sequelize = new Sequelize(
     }
 );
 
-export default sequelize;
+export async function testConnection(): Promise<void> {
+    try {
+        await sequelize.authenticate();
+        await sequelize.sync();
+        console.log(en.SUCCESS.DB_CONN_SUCCESS);
+    } catch (error) {
+        console.error(en.ERROR.DB_CONN_ERR, error);
+    }
+}

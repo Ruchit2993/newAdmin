@@ -15,6 +15,8 @@ export class CategoriesController {
             const createDto: CreateCategoryValidator = req.body;
             if (req.file) {
                 createDto.image = req.file.path.replace(/\\/g, '/'); // Store relative path, normalize slashes
+            } else {
+                return res.status(400).json(ResponseBuilder.error('Image is required'));
             }
             const result = await this.categoriesService.create(createDto);
             return res.status(201).json(ResponseBuilder.success('Category created successfully', result));

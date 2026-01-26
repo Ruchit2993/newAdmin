@@ -5,7 +5,7 @@ import {
     DataTypes,
     CreationOptional
 } from 'sequelize';
-import sequelize from '../../config/db.ts';
+import { sequelize } from '../../config/database.config.ts';
 import { Tables } from '../../config/tables.ts';
 
 class Category extends Model<
