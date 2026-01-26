@@ -6,7 +6,7 @@ import { User } from '../modules/user/user.model.ts'; // Import for registration
 async function testConnection(): Promise<void> {
   try {
     await sequelize.authenticate();
-    await sequelize.sync({ alter: true });
+    await sequelize.sync();
     console.log(en.SUCCESS.DB_CONN_SUCCESS);
   } catch (error) {
     console.error(en.ERROR.DB_CONN_ERR, error);

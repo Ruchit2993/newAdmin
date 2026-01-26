@@ -7,7 +7,7 @@ const router = express.Router();
 const categoriesController = new CategoriesController();
 
 router.post('/', upload.single('image'), validateDto(CreateCategoryValidator), categoriesController.create);
-router.get('/', categoriesController.getAll);
+router.post('/list', categoriesController.getListing);
 router.get('/:id', categoriesController.getOne);
 router.put('/:id', upload.single('image'), validateDto(UpdateCategoryValidator), categoriesController.update);
 router.delete('/:id', categoriesController.delete);

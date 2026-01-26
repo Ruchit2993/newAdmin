@@ -32,6 +32,15 @@ export class CategoriesController {
         }
     };
 
+    public getListing = async (req: Request, res: Response) => {
+        try {
+            const result = await this.categoriesService.getListing(req.body);
+            return res.status(200).json(ResponseBuilder.success('Categories fetched successfully', result));
+        } catch (error: any) {
+            return res.status(500).json(ResponseBuilder.error(error.message));
+        }
+    };
+
     public getOne = async (req: Request, res: Response) => {
         try {
             const id = Number(req.params.id);

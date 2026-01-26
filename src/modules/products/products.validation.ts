@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsNumber, IsInt, IsIn } from 'class-validator';
+import { IsNotEmpty, IsString, IsIn } from 'class-validator';
 import { validate } from 'class-validator';
 import { Request, Response, NextFunction } from 'express';
 import { ResponseBuilder } from '../../helper/response-builder/response-builder.ts';
@@ -10,12 +10,10 @@ export class CreateProductValidator {
     name!: string;
 
     @IsNotEmpty({ message: CONSTANTS.VALIDATION.FIELD_REQUIRED('Price') })
-    @IsNumber({}, { message: CONSTANTS.VALIDATION.INVALID_FIELD_VALUE('Price') })
-    price!: number;
+    price!: number | string;
 
     @IsNotEmpty({ message: CONSTANTS.VALIDATION.FIELD_REQUIRED('Category ID') })
-    @IsInt({ message: CONSTANTS.VALIDATION.INVALID_FIELD_VALUE('Category ID') })
-    category_id!: number;
+    category_id!: number | string;
 
     @IsNotEmpty({ message: CONSTANTS.VALIDATION.FIELD_REQUIRED('Image') })
     @IsString({ message: CONSTANTS.VALIDATION.INVALID_FIELD_VALUE('Image') })
@@ -27,9 +25,6 @@ export class CreateProductValidator {
 
     constructor(data: any) {
         Object.assign(this, data);
-        // Ensure numbers are actually numbers if they came as strings in some contexts, but typical JSON body handles types.
-        // However, DTO validation runs on the object as-is.
-        // If price or category_id are passed, we assume they are correct type or we validate them.
     }
 }
 
@@ -39,12 +34,10 @@ export class UpdateProductValidator {
     name!: string;
 
     @IsNotEmpty({ message: CONSTANTS.VALIDATION.FIELD_REQUIRED('Price') })
-    @IsNumber({}, { message: CONSTANTS.VALIDATION.INVALID_FIELD_VALUE('Price') })
-    price!: number;
+    price!: number | string;
 
     @IsNotEmpty({ message: CONSTANTS.VALIDATION.FIELD_REQUIRED('Category ID') })
-    @IsInt({ message: CONSTANTS.VALIDATION.INVALID_FIELD_VALUE('Category ID') })
-    category_id!: number;
+    category_id!: number | string;
 
     @IsString({ message: CONSTANTS.VALIDATION.INVALID_FIELD_VALUE('Image') })
     image?: string; // Optional on update

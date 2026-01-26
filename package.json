@@ -4,9 +4,9 @@
   "description": "",
   "main": "src/app/index.ts",
   "scripts": {
-    "dev": "nodemon --exec tsx src/app/index.ts",
+    "start": "nodemon --exec tsx src/app/index.ts",
     "build": "tsc",
-    "start": "node dist/app/index.js",
+    "dev": "node dist/app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -16,6 +16,10 @@ export class ProductsController {
             if (req.file) {
                 createDto.image = req.file.path.replace(/\\/g, '/');
             }
+            // Multer parses everything as strings in body, so we need to convert numbers
+            if (createDto.price) createDto.price = Number(createDto.price);
+            if (createDto.category_id) createDto.category_id = Number(createDto.category_id);
+
             const result = await this.productsService.create(createDto);
             return res.status(201).json(ResponseBuilder.success('Product created successfully', result));
         } catch (error: any) {
@@ -26,6 +30,15 @@ export class ProductsController {
     public getAll = async (req: Request, res: Response) => {
         try {
             const result = await this.productsService.findAll();
+            return res.status(200).json(ResponseBuilder.success('Products fetched successfully', result));
+        } catch (error: any) {
+            return res.status(500).json(ResponseBuilder.error(error.message));
+        }
+    };
+
+    public getListing = async (req: Request, res: Response) => {
+        try {
+            const result = await this.productsService.getListing(req.body);
             return res.status(200).json(ResponseBuilder.success('Products fetched successfully', result));
         } catch (error: any) {
             return res.status(500).json(ResponseBuilder.error(error.message));
@@ -52,6 +65,10 @@ export class ProductsController {
             if (req.file) {
                 updateDto.image = req.file.path.replace(/\\/g, '/');
             }
+            // Multer parses everything as strings in body, so we need to convert numbers
+            if (updateDto.price) updateDto.price = Number(updateDto.price);
+            if (updateDto.category_id) updateDto.category_id = Number(updateDto.category_id);
+
             const result = await this.productsService.update(id, updateDto);
             return res.status(200).json(ResponseBuilder.success('Product updated successfully', result));
         } catch (error: any) {

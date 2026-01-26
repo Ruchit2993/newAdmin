@@ -10,8 +10,13 @@ dotenv.config();
 const app: Application = express();
 
 // middleware
+app.use((req, res, next) => {
+    console.log('Incoming Request:', req.method, req.url);
+    console.log('Origin:', req.headers.origin);
+    next();
+});
 app.use(cors({
-    origin: ['http://localhost:4200', 'http://localhost:4300'],
+    origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true
 }));
