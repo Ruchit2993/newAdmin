@@ -2,7 +2,7 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { Request, Response, NextFunction } from 'express';
-import { ResponseBuilder } from '../helper/response-builder/response-builder.ts';
+import { ResponseBuilder } from '../response-builder/response-builder.ts';
 
 const uploadDir = 'uploads/';
 

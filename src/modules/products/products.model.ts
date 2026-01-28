@@ -6,7 +6,6 @@ import {
     CreationOptional
 } from 'sequelize';
 import { sequelize } from '../../config/database.config.ts';
-import { Tables } from '../../config/tables.ts';
 import { Category } from '../categories/categories.model.ts';
 class Product extends Model<
     InferAttributes<Product>,
@@ -78,8 +77,9 @@ Product.init(
     {
         sequelize,
         modelName: 'Product',
-        tableName: Tables.PRODUCT,
-        timestamps: false,
+        tableName: 'products',
+        timestamps: true,
+        paranoid: true,
         underscored: true,
     }
 );

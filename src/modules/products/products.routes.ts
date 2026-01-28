@@ -1,7 +1,7 @@
 import express from 'express';
 import { ProductsController } from './products.controller.ts';
 import { validateDto, CreateProductValidator, UpdateProductValidator } from './products.validation.ts';
-import { handleMultipartData } from '../../config/multer.config.ts';
+import { handleMultipartData } from '../../helper/middleware/multer.middleware.ts';
 
 const router = express.Router();
 const productsController = new ProductsController();

@@ -6,7 +6,6 @@ import {
     CreationOptional
 } from 'sequelize';
 import { sequelize } from '../../config/database.config.ts';
-import { Tables } from '../../config/tables.ts';
 
 class Category extends Model<
     InferAttributes<Category>,
@@ -62,8 +61,9 @@ Category.init(
     {
         sequelize,
         modelName: 'Category',
-        tableName: Tables.CATEGORY,
-        timestamps: false,
+        tableName: 'categories',
+        timestamps: true,
+        paranoid: true,
         underscored: true,
     }
 );

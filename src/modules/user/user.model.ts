@@ -6,7 +6,6 @@ import {
     CreationOptional
 } from 'sequelize';
 import { sequelize } from '../../config/database.config.ts';
-import { Tables } from '../../config/tables.ts';
 
 class User extends Model<
     InferAttributes<User>,
@@ -57,7 +56,7 @@ User.init(
     {
         sequelize,
         modelName: 'User',
-        tableName: Tables.USER,
+        tableName: 'users',
         timestamps: false, // Using manual created_at/updated_at as in user example
         underscored: true,
     }

@@ -1,7 +1,7 @@
 import express from 'express';
 import { CategoriesController } from './categories.controller.ts';
 import { validateDto, CreateCategoryValidator, UpdateCategoryValidator } from './categories.validation.ts';
-import { handleMultipartData } from '../../config/multer.config.ts';
+import { handleMultipartData } from '../../helper/middleware/multer.middleware.ts';
 
 const router = express.Router();
 const categoriesController = new CategoriesController();
